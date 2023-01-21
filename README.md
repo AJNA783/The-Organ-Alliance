@@ -1,1 +1,1 @@
-# The-Organ-Alliance-using C languge
+# The-Organ-Alliance-using C language
