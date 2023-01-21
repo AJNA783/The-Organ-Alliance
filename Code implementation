@@ -1,8 +1,7 @@
-CHAPTER 4
+
 
 IMPLEMENTATION
-
-4.1	MODULE 1 FUNCTIONALITY
+	MODULE 1 FUNCTIONALITY
 
 #include "stdio.h"
 #include "conio.h"
@@ -27,7 +26,7 @@ struct donor o;
 
 Here, we are declaring the variables and storing the data utilising array of structure concepts. The name, age, hospital, phone number, organ, email, and other information are contained here.
 
-4.2 MODULE 2 FUNCTIONALITY
+ MODULE 2 FUNCTIONALITY
 
 void putdonor();
 void getdonor();
@@ -161,7 +160,7 @@ Here, we define several functions while utilising the file notion. We open files
 
 
 
-4.3 MODULE 3 FUNCTIONALITY
+ MODULE 3 FUNCTIONALITY
 
 
 
@@ -215,7 +214,7 @@ default: clrscr();
 
 The menu bar is generated here. We can call the function by using switch cases. Eight cases are presented here. Here, the menu bar will be printed.
 
-4.4 MODULE 4 FUNCTIONALITY
+MODULE 4 FUNCTIONALITY
 
 void amount()
 {
