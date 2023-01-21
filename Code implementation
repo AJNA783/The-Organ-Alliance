@@ -1,0 +1,365 @@
+CHAPTER 4
+
+IMPLEMENTATION
+
+4.1	MODULE 1 FUNCTIONALITY
+
+#include "stdio.h"
+#include "conio.h"
+#include <string.h>
+#include <dos.h>
+#define amt 100000
+FILE *fp;
+long int size;
+struct donor
+{
+char name[50];
+int age;
+char address1[50];
+char address2[50];
+char hospital[50];
+char phn[50];
+char organ[50];
+char email[50];
+int id;
+};
+struct donor o;
+
+Here, we are declaring the variables and storing the data utilising array of structure concepts. The name, age, hospital, phone number, organ, email, and other information are contained here.
+
+4.2 MODULE 2 FUNCTIONALITY
+
+void putdonor();
+void getdonor();
+void donorbyid();
+void donorbyhospital();
+void amount();
+void menu();
+void info();
+void card();
+void main()
+{
+int i;
+i=1;
+size=sizeof(o);
+
+clrscr();
+while(i<=8)
+{
+printf("\n\n\n\n\n\n\n\n\t\t\t\t Initializing");
+if(i<8)
+{
+delay(300);
+clrscr();
+delay(400);
+ }
+ i++;
+ }
+delay(1500);
+printf(".");
+delay(1500);
+printf(".");
+delay(1500);
+printf(".");
+delay(1500);
+clrscr();
+menu();
+
+getch();
+}
+void putdonor()
+{
+char d;
+clrscr();
+fp=fopen("ORGAN.DAT","wb+");
+if(fp==NULL)
+{
+puts("Cannot Open File");
+exit(0);
+}
+fseek(fp,0,SEEK_END);
+do
+{
+clrscr();
+fflush(stdin);
+printf("\n\t Enter Name :- ");
+gets(o.name);
+printf("\n\tEnter Your Age :- ");
+scanf("%d",&o.age);
+fflush(stdin);
+printf("\n\t Enter Ur Donor Id :- ");
+scanf("%d",&o.id);
+printf("\n\t Enter address line 1 :- ");
+fflush(stdin);
+gets(o.address1);
+printf("\n\t Enter address line 2 :- ");
+gets(o.address2);
+printf("\n\t Enter hospital:- ");
+gets(o.hospital);
+printf("\n\t Enter the organ :- ");
+gets(o.organ);
+printf("\n\t Enter your 10 Digit Mobile Number :- ");
+scanf("%s",o.phn);
+fflush(stdin);
+printf("\n\t Enter your Email id :-");
+scanf("%s",o.email);
+fwrite(&o,size,1,fp);
+
+printf("\n\tDo You want to add another data\n Enter (Y \\ N)");
+fflush(stdin);
+scanf("%c",&d);
+}while(d=='Y'||d=='y');
+fclose(fp);
+clrscr();
+menu();
+}
+void getdonor()
+{
+char bld[50];
+char d='y';
+clrscr();
+fp=fopen("ORGAN.DAT","rb");
+if(fp==NULL)
+{
+puts("Cannot Open File");
+exit();
+}
+fflush(stdin);
+printf("\n\tEnter the organ: ");
+scanf("%s",bld);
+rewind(fp);
+
+while(fread(&o,size,1,fp)==1)
+{
+if(d=='Y'||d=='y')
+{
+if(strcmp(o.organ,bld)==0)
+{
+clrscr();
+printf("\n\tName: %s \n\tDonor Id: %d \n\tAge: %d \n\tAddress Line 1: %s \n\tAddress Line 2: %s \n\tHospital: %s \n\tPhone No:- %s \n\tEmail: %s \n\tOrgan: %s \n\n",o.name,o.id,o.age,o.address1,o.address2,o.hospital,o.phn,o.email,o.organ);
+printf("\n\n\tSee More(Y / N)");
+fflush(stdin);
+scanf("%c",&d);
+}
+}
+}
+if(d=='n'||d=='N')
+{
+fclose(fp);
+menu();
+}
+else
+{
+printf("\n\n\n\t\t THERE ARE NO MORE RECORDS AVAILABLE.....!!!");
+printf("\n\n Back to Main Menu in 10 Seconds");
+delay(10000);
+fclose(fp);
+menu();
+}
+}
+Here, we define several functions while utilising the file notion. We open files, store all the data inside of them, and then close the files using pointers. Name, age, address, email, phone number, and other information will be requested here for donor registration, and all of this information will be recorded in a file.
+
+
+
+4.3 MODULE 3 FUNCTIONALITY
+
+
+
+void menu()
+{
+int choice;
+clrscr();
+printf("\n\n\t\t\t\tTHE ORGAN ALLIANCE \n\n\n");
+printf("\t1 Register for Organ donation\n\n");
+printf("\t2 Search by Organ \n\n");
+printf("\t3 Search by Donor Id \n\n");
+printf("\t4 Search by Hospital \n\n");
+printf("\t5 Calculate the amount to be paid to Donor\n\n");
+printf("\t6 About Us\n\n");
+printf("\t7 Organ Donar Card\n\n");
+printf("\t8 Exit the program \n\n");
+printf("\tYour Choice: ");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1 : putdonor();
+	 break;
+
+case 2:  getdonor();
+	 break;
+
+case 3:  donorbyid();
+	 break;
+
+case 4:  donorbyhospital();
+	 break;
+
+case 5:  amount();
+	 break;
+
+case 6:  info();
+	 break;
+
+case 7:  card();
+	 break;
+
+case 8:  exit();
+
+default: clrscr();
+	 printf("\n\n\t\tYou have entered wrong choice.....!!!");
+	 delay(4000);
+	 menu();
+
+}
+}
+
+The menu bar is generated here. We can call the function by using switch cases. Eight cases are presented here. Here, the menu bar will be printed.
+
+4.4 MODULE 4 FUNCTIONALITY
+
+void amount()
+{
+float unit,sum;
+clrscr();
+printf("\n\n\tEnter the unit donated ");
+scanf("%f",&unit);
+sum= unit*amt;
+printf("\n\tAmount paid per Unit = Rs.%d\n\n",amt);
+printf("\n\tTotal Amount to be paid = Rs.%f\n",sum);
+printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBack to Main Menu in 10 seconds");
+delay(10000);
+clrscr();
+menu();
+}
+
+
+
+
+void info()
+{
+clrscr();
+printf("\n\n\t\t\t\tTHE ORGAN ALLIANCE \n\n\n");
+printf(" \n\n\t\t\t            ABOUT US        ");
+printf("\n\n\t\tFounder of the organization-Ajna HS\n");
+printf("\n\n\t\tORGAN DONATION AND TRANSPLATANT HELPLINE-8431488493\n");
+printf("\n\n\t\tTRANPLANTATION OF HUMAN ORGANS ACT-1994\n");
+printf("\nwww.organalliance.com\nconnect us\nfacebook youtube instagram");
+printf("\n\n\nBack to Main Menu in 10 seconds");
+delay(10000);
+clrscr();
+menu();
+
+}
+void card()
+{
+clrscr();
+printf("\n\n           \t\tOrgan Card Number");
+printf("\n\n Name:_____");
+printf("\n\n Age:_____   Blood group:______");
+printf("\n\n After my death \n A) Any parts of the body __________ ");
+printf("\n\n B) My coreas _____  Kidneys:________  Heart:______ Lungs:_____  Liver: _______ Pancreas: ____");
+printf("\n\n Signautre: _______ Date:_______ Contact no:________");
+printf("\n\n *****KEEP THIS CARD WITH YOU AT ALL TIMES*****");
+printf("\n\n *****PLEASE INFORM YOUR RELATIVE/FAMILY ABOUT YOUR WISH*****");
+delay(10000)
+clrscr();
+menu();
+}
+void donorbyid()
+{
+int id;
+char d='y';
+clrscr();
+fp=fopen("ORGAN.DAT","rb");
+if(fp==NULL)
+{
+puts("Cannot Open File");
+exit();
+}
+fflush(stdin);
+printf("\n\tEnter the Donor Id ");
+scanf("%d",&id);
+rewind(fp);
+
+while(fread(&o,size,1,fp)==1)
+{
+if(d=='Y'||d=='y')
+{
+if(o.id==id)      //Mathching the Bloodgroup required with the one's present in Database
+{
+printf("\n\tName: %s \n\tDonor Id: %d \n\tAge: %d \n\tAddress Line 1: %s \n\tAddress Line 2: %s \n\tHospital: %s \n\tPhone No:- %s \n\tEmail: %s \n\tOrgan: %s\n\n",o.name,o.id,o.age,o.address1,o.address2,o.hospital,o.phn,o.email,o.organ);
+printf("\n\n\tSee More(Y / N)");
+fflush(stdin);
+scanf("%c",&d);
+}
+}
+}
+if(d=='n'||d=='N')
+{
+fclose(fp);
+menu();
+}
+else
+{
+printf("\n\n\n\t\t NO MORE RECORDS FOUND.....!!!");
+printf("\n\n Back to Main Menu in 10 Seconds");
+delay(10000);
+fclose(fp);
+menu();
+}
+}
+
+
+void donorbyhospital()
+{
+char hospital[20];
+char d='y';
+clrscr();
+fp=fopen("ORGAN.DAT","rb");
+if(fp==NULL)
+{
+puts("Cannot Open File");
+exit();
+}
+fflush(stdin);
+printf("\n\tEnter the Hospital:");
+scanf("%s",hospital);
+rewind(fp);
+
+while(fread(&o,size,1,fp)==1)
+{
+if(d=='Y'||d=='y')
+{
+if((strcmp(o.hospital,hospital))==0)
+{
+printf("\n\tName: %s \n\tDonor Id: %d \n\tAge: %d \n\tAddress Line 1: %s \n\tAddress Line 2: %s \n\tHospital: %s \n\tPhone No: %s \n\tEmail: %s \n\tOrgan: %s\n\n",o.name,o.id,o.age,o.address1,o.address2,o.hospital,o.phn,o.email,o.organ);
+printf("\n\n\tSee More(Y / N)");
+fflush(stdin);
+scanf("%c",&d);
+}
+}
+}
+if(d=='n'||d=='N')
+{
+fclose(fp);
+menu();
+}
+else
+{
+printf("\n\n\n\t\t  THERE ARE NO MORE RECORDS AVAILABLE.....!!!");
+printf("\n\n Back to Main Menu in 10 Seconds");
+delay(10000);
+fclose(fp);
+menu();
+}
+}
+void linkfloat()
+{
+float d=0,*o;
+o=&d;
+d=*o;
+
+
+We've already defined  a function, and right now we're generating search by hospital, search by donor ID, search by organ, search by amount to be paid, and search by the donor card that is produced while the registration process. When you choose one of these options, a file will open, containing all the information you need to print. The user will have the option to either give up or continue looking because there will be a lot of material recorded
+
+
